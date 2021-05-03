@@ -10,11 +10,27 @@ const Navigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{
-          tabBarIcon: ({color}) => {
-            return <Icon name="home" size={30} color={color} />;
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color}) => {
+            let iconName;
+
+            switch (route.name) {
+              case 'Home':
+                iconName = 'home';
+                break;
+              case 'AddPhoto':
+                iconName = 'camera';
+                break;
+              case 'Profile':
+                iconName = 'user';
+                break;
+              default:
+                break;
+            }
+
+            return <Icon name={iconName} size={30} color={color} />;
           },
-        }}
+        })}
         tabBarOptions={{
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
