@@ -29,6 +29,7 @@ const AddComment = () => {
             value={comment}
             onChangeText={comment => setComment(comment)}
             onSubmitEditing={handleAddComent}
+            placeholderTextColor="#555"
           />
           <TouchableOpacity onPress={() => setToggleEditMode(false)}>
             <Icon name="times" size={25} color="#555" />
@@ -59,7 +60,6 @@ const styles = StyleSheet.create({
   },
   imput: {
     width: '90%',
-    borderBottomWidth: 1,
   },
 });
 
