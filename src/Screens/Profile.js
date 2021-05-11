@@ -3,11 +3,11 @@ import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {Gravatar} from 'react-native-gravatar';
 
 // const Profile = ({email, name}) => {
-const Profile = () => {
+const Profile = ({navigation}) => {
   const name = 'Fulano de Tal ';
   const email = 'fulano@sousa.io';
   const logout = () => {
-    console.warn('logout');
+    // navigation.navigate('Login');
   };
 
   return (

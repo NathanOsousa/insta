@@ -11,10 +11,12 @@ const postsMock = [
     image: require('../../assets/imgs/fence.jpg'),
     comments: [
       {
+        id: Math.random(),
         nickname: 'John Ray Sheldon',
         comment: 'Stunning!',
       },
       {
+        id: Math.random(),
         nickname: 'Ana Julia Arruda',
         comment: 'Foto linda! Onde foi tirada?',
       },
