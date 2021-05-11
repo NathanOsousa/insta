@@ -1,11 +1,21 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Pressable, Text} from 'react-native';
 
-const Login = ({navigation}) => {
+const Register = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [nome, setNome] = useState('');
+
   return (
     <View style={styles.container}>
+      <TextInput
+        placeholder="Nome"
+        style={styles.input}
+        autoFocus={true}
+        value={nome}
+        onChangeText={nome => setNome(nome)}
+        placeholderTextColor="#000"
+      />
       <TextInput
         placeholder="Email"
         style={styles.input}
@@ -23,12 +33,7 @@ const Login = ({navigation}) => {
         placeholderTextColor="#000"
       />
       <Pressable onPress={() => {}} style={styles.buttom}>
-        <Text style={styles.butonText}>Login</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => navigation.navigate('Register')}
-        style={styles.buttom}>
-        <Text style={styles.butonText}>Criar nova conta</Text>
+        <Text style={styles.butonText}>Salvar</Text>
       </Pressable>
     </View>
   );
@@ -37,17 +42,9 @@ const Login = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  input: {
-    marginTop: 20,
-    backgroundColor: '#EEE',
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#333',
-    width: '90%',
+    backgroundColor: 'white',
   },
   buttom: {
     marginTop: 30,
@@ -58,6 +55,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
+  input: {
+    marginTop: 20,
+    backgroundColor: '#EEE',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#333',
+    width: '90%',
+  },
 });
 
-export default Login;
+export default Register;
