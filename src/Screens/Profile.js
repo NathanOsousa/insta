@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {Gravatar} from 'react-native-gravatar';
-
-const Profile = ({navigation}) => {
-  const name = 'Fulano de Tal ';
-  const email = 'fulano@sousa.io';
+import {connect} from 'react-redux';
+import {logout} from '../redux/actions/userActions';
+const Profile = ({navigation, onLogout, email, name}) => {
   const logout = () => {
+    onLogout();
+    //dispatch(logout());
     navigation.navigate('Login');
   };
 
@@ -53,4 +54,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+const mapStateToProps = ({user}) => ({
+  email: user.email,
+  name: user.name,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(logout()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

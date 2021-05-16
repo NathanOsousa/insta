@@ -1,9 +1,18 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Pressable, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {login} from '../redux/actions/userActions';
 
-const Login = ({navigation}) => {
+const Login = ({navigation, onLogin}) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('Temporário');
+
+  const login = () => {
+    onLogin({password, email, name});
+    navigation.navigate('Profile');
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -22,7 +31,7 @@ const Login = ({navigation}) => {
         value={password}
         placeholderTextColor="#000"
       />
-      <Pressable onPress={() => {}} style={styles.buttom}>
+      <Pressable onPress={login} style={styles.buttom}>
         <Text style={styles.butonText}>Login</Text>
       </Pressable>
       <Pressable
@@ -60,4 +69,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: user => dispatch(login(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
