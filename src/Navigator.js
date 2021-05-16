@@ -13,8 +13,8 @@ const Tab = createBottomTabNavigator();
 const Auth = createStackNavigator();
 const authScreens = () => (
   <Auth.Navigator>
-    <Auth.Screen name="Profile" component={Profile} />
     <Auth.Screen name="Login" component={Login} />
+    <Auth.Screen name="Profile" component={Profile} />
     <Auth.Screen name="Register" component={Register} />
   </Auth.Navigator>
 );
