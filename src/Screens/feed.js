@@ -2,46 +2,17 @@ import React, {useState} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import Header from '../components/Header';
 import Post from '../components/Post';
+import {connect} from 'react-redux';
 
-const postsMock = [
-  {
-    id: Math.random(),
-    nickname: 'Rafael Pereira Filho',
-    email: 'rafaelprrflh@gmail.com',
-    image: require('../../assets/imgs/fence.jpg'),
-    comments: [
-      {
-        id: Math.random(),
-        nickname: 'John Ray Sheldon',
-        comment: 'Stunning!',
-      },
-      {
-        id: Math.random(),
-        nickname: 'Ana Julia Arruda',
-        comment: 'Foto linda! Onde foi tirada?',
-      },
-    ],
-  },
-  {
-    id: Math.random(),
-    nickname: 'Francisco Leandro Lima',
-    email: 'fllima@gmail.com',
-    image: require('../../assets/imgs/bw.jpg'),
-    comments: [],
-  },
-];
-
-const Feed = () => {
-  // const [posts, setPosts] = useState(postsMock);
+const Feed = ({post}) => {
+  console.log('🚀 ~ file: feed.js ~ line 8 ~ Feed ~ post', post);
   return (
     <View style={styles.container}>
       <Header />
       <FlatList
-        data={postsMock}
+        data={post}
         keyExtractor={item => `${item.id}`}
-        renderItem={({item}) => {
-          return <Post key={item.id} {...item} />;
-        }}
+        renderItem={({item}) => <Post key={item.id} {...item} />}
       />
     </View>
   );
@@ -55,4 +26,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Feed;
+const mapStateToProps = state => ({
+  post: state.posts.posts,
+});
+
+function mapDispatchToProps(dispatch) {
+  return {dispatch};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);
