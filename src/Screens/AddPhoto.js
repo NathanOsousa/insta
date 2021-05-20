@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   body: {
-    flexGrow: 2,
+    flexShrink: 1,
     backgroundColor: '#FFF',
     justifyContent: 'space-between',
   },

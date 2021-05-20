@@ -7,15 +7,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {connect} from 'react-redux';
+import {addComment} from '../redux/actions/comments';
 
-const AddComment = () => {
+const AddComment = ({name, dispatch}) => {
   const [comment, setComment] = useState('');
   const [toggleEditMode, setToggleEditMode] = useState(true);
 
   const handleAddComent = () => {
-    console.log(
-      '🚀 ~ file: AddComment.js ~ line 6 ~ AddComment ~ comment',
-      comment,
+    dispatch(
+      addComment({
+        comment,
+        name,
+      }),
     );
   };
 
@@ -63,4 +67,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddComment;
+const mapStateToProps = state => ({
+  name: state.user.name,
+});
+
+function mapDispatchToProps(dispatch) {
+  return {dispatch};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddComment);
