@@ -11,8 +11,10 @@ import {
   ScrollView,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import {addPost} from '../redux/actions/post';
+import {connect} from 'react-redux';
 
-const AddPhoto = () => {
+const AddPhoto = ({dispatch, name, email}) => {
   const [photo, setPhoto] = useState('');
   const [comment, setComment] = useState('');
 
@@ -29,6 +31,22 @@ const AddPhoto = () => {
 
   const save = async () => {
     Alert.alert('Imagem adicionada', comment);
+    const data = {
+      id: Math.random(),
+      nickname: name,
+      email,
+      image: photo,
+      comment: [
+        {
+          nickname: name,
+          comment,
+        },
+      ],
+    };
+    dispatch(addPost(data));
+
+    setPhoto('');
+    setComment('');
   };
 
   return (
@@ -101,4 +119,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddPhoto;
+const mapStateToProps = state => ({
+  name: state.user.name,
+  email: state.user.email,
+});
+
+function mapDispatchToProps(dispatch) {
+  return {dispatch};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto);

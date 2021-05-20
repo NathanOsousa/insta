@@ -5,7 +5,6 @@ import Post from '../components/Post';
 import {connect} from 'react-redux';
 
 const Feed = ({post}) => {
-  console.log('🚀 ~ file: feed.js ~ line 8 ~ Feed ~ post', post);
   return (
     <View style={styles.container}>
       <Header />

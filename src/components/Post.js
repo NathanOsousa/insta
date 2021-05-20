@@ -5,11 +5,12 @@ import Author from './Author';
 import AddComment from './AddComment';
 
 const Post = props => {
+  let image = 'data:image/png;base64,' + props.image.body;
   return (
     <View style={styles.container}>
-      <Image source={props.image} style={styles.image} />
+      <Image source={{uri: image}} style={styles.image} />
       <Author email={props.email} nickname={props.nickname} />
-      <Comment comments={props.comments} />
+      <Comment comments={props.comment} />
       <AddComment />
     </View>
   );

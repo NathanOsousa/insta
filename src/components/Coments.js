@@ -4,7 +4,7 @@ import {View, StyleSheet, FlatList, Text} from 'react-native';
 const Comments = props => {
   const renderComment = ({item}) => {
     return (
-      <View style={styles.commentContainer}>
+      <View key={item.id} style={styles.commentContainer}>
         <Text style={styles.nickname}>{item.nickname}: </Text>
         <Text style={styles.comment}>{item.comment}</Text>
       </View>
