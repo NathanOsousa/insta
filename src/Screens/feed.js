@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
+    //backgroundColor: 'red',
   },
 });
 

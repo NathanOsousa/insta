@@ -48,6 +48,7 @@ const Navigator = () => {
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
           showLabel: false,
+          style: {position: 'absolute'},
         }}>
         <Tab.Screen name="Home" component={Feed} />
         <Tab.Screen name="AddPhoto" component={AddComment} />

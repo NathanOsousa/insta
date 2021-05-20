@@ -26,7 +26,6 @@ const Header = ({name, email}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    flexGrow: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
