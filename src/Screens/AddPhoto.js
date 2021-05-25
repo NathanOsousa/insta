@@ -36,8 +36,9 @@ const AddPhoto = ({dispatch, name, email}) => {
       nickname: name,
       email,
       image: photo,
-      comment: [
+      comments: [
         {
+          id: Math.random(),
           nickname: name,
           comment,
         },

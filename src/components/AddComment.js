@@ -15,12 +15,13 @@ const AddComment = ({name, dispatch}) => {
   const [toggleEditMode, setToggleEditMode] = useState(true);
 
   const handleAddComent = () => {
-    dispatch(
-      addComment({
-        comment,
-        name,
-      }),
-    );
+    const data = {
+      id: Math.random(),
+      nickname: name,
+      comment,
+    };
+
+    dispatch(addComment(data));
   };
 
   return (
@@ -29,7 +30,7 @@ const AddComment = ({name, dispatch}) => {
         <View style={styles.container}>
           <TextInput
             placeholder="insira seu comentário"
-            style={styles.imput}
+            style={styles.input}
             value={comment}
             onChangeText={comment => setComment(comment)}
             onSubmitEditing={handleAddComent}
@@ -62,8 +63,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#CCC',
   },
-  imput: {
+  input: {
     width: '90%',
+    color: '#000',
   },
 });
 

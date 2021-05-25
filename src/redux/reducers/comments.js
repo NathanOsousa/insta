@@ -11,7 +11,7 @@ const CommentReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         comment: action.payload.comment,
-        nickname: action.payload.name,
+        nickname: action.payload.nickname,
       };
 
     default:

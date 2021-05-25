@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#333',
     width: '90%',
+    color: '#000',
   },
   buttom: {
     marginTop: 30,
