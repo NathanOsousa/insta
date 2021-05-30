@@ -1,10 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import Header from '../components/Header';
 import Post from '../components/Post';
 import {connect} from 'react-redux';
+import {getPosts} from '../redux/actions/post';
 
-const Feed = ({post}) => {
+const Feed = ({post, dispatch}) => {
+  const getPost = useCallback(() => {
+    dispatch(getPosts);
+  }, [dispatch]);
+
+  useEffect(() => {
+    getPost();
+  }, [getPost]);
+
   return (
     <View style={styles.container}>
       <Header />

@@ -1,4 +1,4 @@
-import {ADD_POST} from '../constants/post';
+import {ADD_POST, SET_POSTS} from '../constants/post';
 import {ADD_COMMENT} from '../constants/comments';
 
 const INITIAL_STATE = {
@@ -33,6 +33,11 @@ const INITIAL_STATE = {
 
 const PostReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case SET_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+      };
     case ADD_POST:
       return {
         ...state,

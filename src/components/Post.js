@@ -6,17 +6,13 @@ import AddComment from './AddComment';
 import {connect} from 'react-redux';
 
 const Post = props => {
-  let image = props.image.body
-    ? 'data:image/png;base64,' + props.image.body
-    : null;
+  // let image = props.image.body
+  //   ? 'data:image/png;base64,' + props.image.body
+  //   : null;
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{uri: image}}
-        // source={props.image}
-        style={styles.image}
-      />
+      <Image source={{uri: props.image}} style={styles.image} />
       <Author email={props.email} nickname={props.nickname} />
       {props.comments && <Comment comments={props.comments} />}
       {props.name && <AddComment postId={props.id} />}
