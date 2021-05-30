@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 const Comments = ({comments}) => {
   const renderComment = ({item}) => {
+    // console.log('🚀 ~ file: Coments.js ~ line 7 ~ renderComment ~ item', item);
     return (
       <View key={item.id} style={styles.commentContainer}>
         <Text style={styles.nickname}>{item.nickname}: </Text>
@@ -27,7 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     margin: 10,
-    backgroundColor: 'green',
   },
   commentContainer: {
     flexDirection: 'row',

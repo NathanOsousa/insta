@@ -14,7 +14,7 @@ const Post = props => {
       <Image source={{uri: image}} style={styles.image} />
       <Author email={props.email} nickname={props.nickname} />
       {props.comments && <Comment comments={props.comments} />}
-      <AddComment />
+      <AddComment postId={props.id} />
     </View>
   );
 };

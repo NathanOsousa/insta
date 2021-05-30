@@ -10,18 +10,22 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import {addComment} from '../redux/actions/comments';
 
-const AddComment = ({name, dispatch}) => {
+const AddComment = ({name, dispatch, postId}) => {
   const [comment, setComment] = useState('');
   const [toggleEditMode, setToggleEditMode] = useState(true);
 
   const handleAddComent = () => {
-    const data = {
-      id: Math.random(),
-      nickname: name,
-      comment,
-    };
-
-    dispatch(addComment(data));
+    dispatch(
+      addComment({
+        postId: postId,
+        comment: {
+          comment: comment,
+          nickname: name,
+        },
+      }),
+    );
+    setComment('');
+    setToggleEditMode(false);
   };
 
   return (
