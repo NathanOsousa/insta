@@ -17,16 +17,28 @@ import {connect} from 'react-redux';
 const AddPhoto = ({dispatch, name, email}) => {
   const [photo, setPhoto] = useState('');
   const [comment, setComment] = useState('');
+  const noUser = 'Faça login para postar uma foto';
 
   const PickImage = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: false,
-      includeBase64: true,
-    }).then(response => {
-      setPhoto({body: response.data.toString()});
-    });
+    if (!name) {
+      Alert.alert('Login', noUser);
+    } else {
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: false,
+        includeBase64: true,
+      })
+        .then(response => {
+          setPhoto({body: response.data.toString()});
+        })
+        .catch(error => {
+          console.log(
+            '🚀 ~ file: AddPhoto.js ~ line 34 ~ PickImage ~ error',
+            error,
+          );
+        });
+    }
   };
 
   const save = async () => {
@@ -69,6 +81,7 @@ const AddPhoto = ({dispatch, name, email}) => {
           value={comment}
           onChangeText={comment => setComment(comment)}
           placeholderTextColor="black"
+          editable={name !== null}
         />
         <TouchableOpacity onPress={save} style={styles.button}>
           <Text style={styles.buttonText}>Salvar</Text>

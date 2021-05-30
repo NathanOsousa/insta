@@ -3,6 +3,7 @@ import {Image, View, StyleSheet, Dimensions} from 'react-native';
 import Comment from './Coments';
 import Author from './Author';
 import AddComment from './AddComment';
+import {connect} from 'react-redux';
 
 const Post = props => {
   let image = props.image.body
@@ -11,10 +12,14 @@ const Post = props => {
 
   return (
     <View style={styles.container}>
-      <Image source={{uri: image}} style={styles.image} />
+      <Image
+        /*source={{uri: image}}*/
+        source={props.image}
+        style={styles.image}
+      />
       <Author email={props.email} nickname={props.nickname} />
       {props.comments && <Comment comments={props.comments} />}
-      <AddComment postId={props.id} />
+      {props.name && <AddComment postId={props.id} />}
     </View>
   );
 };
@@ -29,4 +34,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Post;
+const mapStateToProps = state => ({
+  name: state.user.name,
+});
+
+function mapDispatchToProps(dispatch) {
+  return {dispatch};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
