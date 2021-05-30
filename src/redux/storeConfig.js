@@ -1,7 +1,8 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import UserReducer from './reducers/user';
 import PostReducer from './reducers/post';
 import CommentReducer from './reducers/comments';
+import trunk from 'redux-thunk';
 
 const reducers = combineReducers({
   user: UserReducer,
@@ -9,6 +10,8 @@ const reducers = combineReducers({
   comment: CommentReducer,
 });
 
-const storeConfig = () => createStore(reducers);
+const storeConfig = () => {
+  return createStore(reducers, compose(applyMiddleware(trunk)));
+};
 
 export default storeConfig;

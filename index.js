@@ -7,8 +7,11 @@ import storeConfig from './src/redux/storeConfig';
 import {AppRegistry} from 'react-native';
 import Navigator from './src/Navigator';
 import {name as appName} from './app.json';
+import axios from 'axios';
 
+axios.defaults.baseURL = 'https://insta-71514-default-rtdb.firebaseio.com/';
 const store = storeConfig();
+
 const Redux = () => (
   <Provider store={store}>
     <Navigator />
