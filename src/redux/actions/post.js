@@ -1,9 +1,10 @@
-import {SET_POSTS} from '../constants/post';
+import {SET_POSTS, CREATING_POSTS, POST_CREATED} from '../constants/post';
 import {ADD_COMMENT} from '../constants/comments';
 import axios from 'axios';
 
 export const addPost = post => {
   return dispatch => {
+    dispatch(creatingPost());
     axios({
       url: 'uploadImage',
       baseURL: 'https://insta-71514-default-rtdb.firebaseio.com',
@@ -17,7 +18,8 @@ export const addPost = post => {
         axios
           .post('/posts.json', {...post})
           .then(response => {
-            console.log('🚀 ~ file: post.js ~ line 9 ~ response', response);
+            dispatch(getPosts());
+            dispatch(postCreated());
           })
           .catch(error => {
             console.log(
@@ -63,10 +65,22 @@ export const getPosts = () => {
             id: key,
           });
         }
-        dispatch(setPosts(posts));
+        dispatch(setPosts(posts.reverse));
       })
       .catch(err => {
         console.log('🚀 ~ file: post.js ~ line 56 ~ axios.get ~ err', err);
       });
+  };
+};
+
+export const creatingPost = () => {
+  return {
+    type: CREATING_POSTS,
+  };
+};
+
+export const postCreated = () => {
+  return {
+    type: POST_CREATED,
   };
 };

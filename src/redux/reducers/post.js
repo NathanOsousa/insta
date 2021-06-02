@@ -1,7 +1,13 @@
-import {ADD_POST, SET_POSTS} from '../constants/post';
+import {
+  ADD_POST,
+  SET_POSTS,
+  CREATING_POSTS,
+  POST_CREATED,
+} from '../constants/post';
 import {ADD_COMMENT} from '../constants/comments';
 
 const INITIAL_STATE = {
+  isUploading: false,
   posts: [
     // {
     //   id: Math.random(),
@@ -38,6 +44,7 @@ const PostReducer = (state = INITIAL_STATE, action) => {
         ...state,
         posts: action.payload,
       };
+
     case ADD_POST:
       return {
         ...state,
@@ -45,6 +52,7 @@ const PostReducer = (state = INITIAL_STATE, action) => {
           ...action.payload,
         }),
       };
+
     case ADD_COMMENT:
       return {
         ...state,
@@ -60,6 +68,17 @@ const PostReducer = (state = INITIAL_STATE, action) => {
         }),
       };
 
+    case CREATING_POSTS:
+      return {
+        ...state,
+        isUploading: true,
+      };
+
+    case POST_CREATED:
+      return {
+        ...state,
+        isUploading: false,
+      };
     default:
       return state;
   }

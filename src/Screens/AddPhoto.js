@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -14,7 +14,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {addPost} from '../redux/actions/post';
 import {connect} from 'react-redux';
 
-const AddPhoto = ({dispatch, name, email}) => {
+const AddPhoto = ({dispatch, name, email, loading, navigation}) => {
   const [photo, setPhoto] = useState('');
   const [comment, setComment] = useState('');
   const noUser = 'Faça login para postar uma foto';
@@ -57,10 +57,15 @@ const AddPhoto = ({dispatch, name, email}) => {
       ],
     };
     dispatch(addPost(data));
-
-    setPhoto('');
-    setComment('');
   };
+
+  useEffect(prevProps => {
+    if (prevProps.loading && !loading) {
+      setPhoto(null);
+      setComment('');
+      navigation.navigate('Feed');
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -83,7 +88,10 @@ const AddPhoto = ({dispatch, name, email}) => {
           placeholderTextColor="black"
           editable={name !== null}
         />
-        <TouchableOpacity onPress={save} style={styles.button}>
+        <TouchableOpacity
+          onPress={save}
+          style={[styles.button, loading && styles.buttonDisabled]}
+          disabled={loading}>
           <Text style={styles.buttonText}>Salvar</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -131,11 +139,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#000',
   },
+  buttonDisabled: {
+    backgroundColor: '#AAA',
+  },
 });
 
 const mapStateToProps = state => ({
   name: state.user.name,
   email: state.user.email,
+  loading: state.posts.isUploading,
 });
 
 function mapDispatchToProps(dispatch) {
