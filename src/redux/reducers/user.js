@@ -1,8 +1,14 @@
-import {USER_LOGGED_IN, USER_LOGGED_OUT} from '../constants/user';
+import {
+  USER_LOGGED_IN,
+  USER_LOGGED_OUT,
+  LOADING_USER,
+  USER_LOADED,
+} from '../constants/user';
 
 const INITAL_STATE = {
   name: null,
   email: null,
+  isLoading: false,
 };
 
 const UserReducer = (state = INITAL_STATE, action) => {
@@ -19,7 +25,16 @@ const UserReducer = (state = INITAL_STATE, action) => {
         name: null,
         email: null,
       };
-
+    case LOADING_USER:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case USER_LOADED:
+      return {
+        ...state,
+        isLoading: false,
+      };
     default:
       return state;
   }

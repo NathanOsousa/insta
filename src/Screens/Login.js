@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, TextInput, Pressable, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {login} from '../redux/actions/userActions';
@@ -10,8 +10,13 @@ const Login = ({navigation, onLogin}) => {
 
   const login = () => {
     onLogin({password, email, name});
-    navigation.navigate('Profile');
   };
+
+  useEffect(prevProps => {
+    if (prevProps.loading && !isLoading) {
+      navigation.navigate('Profile');
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -70,7 +75,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  isLoading: state.user.isLoading,
+});
 
 const mapDispatchToProps = dispatch => {
   return {
