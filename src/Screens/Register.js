@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Pressable, Text} from 'react-native';
+import {connect} from 'react-redux';
+import createUser from '../redux/actions/userActions';
 
 const Register = () => {
   const [password, setPassword] = useState('');
@@ -32,7 +34,11 @@ const Register = () => {
         value={password}
         placeholderTextColor="#000"
       />
-      <Pressable onPress={() => {}} style={styles.buttom}>
+      <Pressable
+        onPress={() => {
+          dispatch(createUser({name: nome, email: email}));
+        }}
+        style={styles.buttom}>
         <Text style={styles.butonText}>Salvar</Text>
       </Pressable>
     </View>
@@ -66,4 +72,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
