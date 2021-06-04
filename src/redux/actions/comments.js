@@ -3,14 +3,17 @@ import {ADD_COMMENT} from '../constants/comments';
 import {getPosts} from '../actions/post';
 
 export const addComment = comment => {
-  return dispatch => {
+  return (dispatch, getState) => {
     axios
       .get(`/posts/${payload.postId}.json`)
       .then(response => {
         const comments = response.data.comments || [];
         comments.push(payload.coment);
         axios
-          .patch(`/posts/${payload.postId}.json`, {comments})
+          .patch(
+            `/posts/${payload.postId}.json?auth=${getState().user.token}`,
+            {comments},
+          )
           .then(response => {
             dispatch(getPosts());
           })

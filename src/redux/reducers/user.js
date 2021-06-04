@@ -9,6 +9,7 @@ const INITAL_STATE = {
   name: null,
   email: null,
   isLoading: false,
+  token: null,
 };
 
 const UserReducer = (state = INITAL_STATE, action) => {
@@ -18,12 +19,11 @@ const UserReducer = (state = INITAL_STATE, action) => {
         ...state,
         name: action.payload.name,
         email: action.payload.email,
+        token: action.payload.token,
       };
     case USER_LOGGED_OUT:
       return {
-        ...state,
-        name: null,
-        email: null,
+        ...INITAL_STATE,
       };
     case LOADING_USER:
       return {

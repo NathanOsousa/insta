@@ -4,7 +4,7 @@ import axios from 'axios';
 import {setMessage} from './message';
 
 export const addPost = post => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(creatingPost());
     axios({
       url: 'uploadImage',
@@ -17,7 +17,7 @@ export const addPost = post => {
       .then(res => {
         post.image = res.data.imageUrl;
         axios
-          .post('/posts.json', {...post})
+          .post(`/posts.json?auth=${getState().user.token}`, {...post})
           .then(response => {
             dispatch(getPosts());
             dispatch(postCreated());

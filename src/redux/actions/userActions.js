@@ -39,8 +39,8 @@ export const createUser = user => {
               name: user.name,
             })
             .then(res => {
-              delete user.password.email;
-              user.id = res.data.localId;
+              delete user.password;
+              user.name = res.data.name;
               dispatch(userLogged(user));
               dispatch(userLoaded);
             })
@@ -78,14 +78,11 @@ export const login = user => {
       })
       .then(res => {
         if (res.data.localId) {
+          user.token = res.data.idToken;
           axios
             .get(`/users/${res.data.localId}.json`)
             .then(res => {
-              user.name = res.data.name;
-              delete user.password.email;
-              user.id = res.data.localId;
-              dispatch(userLogged(user));
-              dispatch(userLoaded());
+              dispatch(login(user));
             })
             .catch(error => {
               console.log(
