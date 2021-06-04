@@ -24,6 +24,7 @@ export const logout = () => {
 };
 
 export const createUser = user => {
+  dispatch(loadingUser());
   return dispatch => {
     axios
       .post(`${authBaseURL}singupNewUser?key=${API_KEY}`, {
@@ -38,7 +39,10 @@ export const createUser = user => {
               name: user.name,
             })
             .then(res => {
-              console.log('🚀 ~  usuario criado com sucesso');
+              delete user.password.email;
+              user.id = res.data.localId;
+              dispatch(userLogged(user));
+              dispatch(userLoaded);
             })
             .catch(error => {
               console.log('🚀 ~ file: userActions.js ~ line 38 ~ error', error);
@@ -77,8 +81,9 @@ export const login = user => {
           axios
             .get(`/users/${res.data.localId}.json`)
             .then(res => {
-              user.password = null;
               user.name = res.data.name;
+              delete user.password.email;
+              user.id = res.data.localId;
               dispatch(userLogged(user));
               dispatch(userLoaded());
             })

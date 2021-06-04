@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, TextInput, Pressable, Text} from 'react-native';
 import {connect} from 'react-redux';
 import createUser from '../redux/actions/userActions';
@@ -7,7 +7,14 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
-
+  useEffect(prevProps => {
+    if (prevProps.loading && !isLoading) {
+      setPassword('');
+      setEmail('');
+      setNome('');
+      navigation.navigate('Feed');
+    }
+  }, []);
   return (
     <View style={styles.container}>
       <TextInput
@@ -72,7 +79,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  isLoading: state.user.isLoading,
+});
 
 const mapDispatchToProps = {};
 

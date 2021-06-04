@@ -1,6 +1,7 @@
 import {SET_POSTS, CREATING_POSTS, POST_CREATED} from '../constants/post';
 import {ADD_COMMENT} from '../constants/comments';
 import axios from 'axios';
+import {setMessage} from './message';
 
 export const addPost = post => {
   return dispatch => {
@@ -22,20 +23,13 @@ export const addPost = post => {
             dispatch(postCreated());
           })
           .catch(error => {
-            console.log(
-              '🚀 ~ file: post.js ~ line 8 ~ axios.post ~ error',
-              error,
-            );
+            dispatch(setMessage({title: 'Erro', text: error}));
           });
       })
       .catch(err => {
         console.log('🚀 ~ file: post.js ~ line 29 ~ err', err);
       });
   };
-  // return {
-  //   type: ADD_POST,
-  //   payload: post,
-  // };
 };
 
 export const addComment = comment => {
